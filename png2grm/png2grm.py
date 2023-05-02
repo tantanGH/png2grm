@@ -18,7 +18,7 @@ def convert_png_to_gvram(png_file, out_file, size):
       rgb555 = ((g>>3)<<11) | ((r>>3)<<6) | ((b>>3)<<1) | 0
       if rgb555 != 0:
         rgb555 += 1
-      out_bytes.append(rgb555.to_bytes(2, 'big'))
+      out_bytes.extend(rgb555.to_bytes(2, 'big'))
 
   # output to file
   with open(out_file, "wb") as f:
