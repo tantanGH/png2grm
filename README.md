@@ -45,6 +45,8 @@ X68000側で MicroPython を使って表示する例
             grm_data = f.read(2 * 384 * 64)
             gvram.put(0, y, 383, y + 63, grm_data)
 
+<img src='images/sample1x.png'/>
+
 注意：X68000の512x512モードのアスペクト比は3:2と言われているが、これはブラウン管(CRT)では周辺の歪みを避けるためにオーバースキャン気味に設定されていたためと思われる。
 
 
@@ -83,3 +85,8 @@ X68000側で MicroPython を使って表示する例
           for y in range(0, 464, 16):
             grm_data = f.read(2 * 512 * 16)
             gvram.put(0, y, 511, y + 15, grm_data)
+
+
+<img src='images/sample2x.png'/>
+
+---
