@@ -40,7 +40,7 @@ X68000側で MicroPython を使って表示する例
         x68k.crtmod(12,True)
 
         gvram = x68k.GVRam()
-        with open("sample2.grm", "rb") as f:
+        with open("sample1.grm", "rb") as f:
           for y in range(0, 512, 64):
             grm_data = f.read(2 * 384 * 64)
             gvram.put(0, y, 383, y + 63, grm_data)
