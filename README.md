@@ -20,6 +20,8 @@ Input PNG file can be RGB PNG or RGBA transparent PNG either.
     options:
         -x [width]       ... 出力横サイズ
         -y [height]      ... 出力縦サイズ
+        -c [colors]      ... 65536(default), 256, 16
+        -t               ... TVRAM2値形式で書き出す(-cは無視)
 
 ---
 
@@ -55,7 +57,7 @@ X68000側で MicroPython を使って表示する例
 
 ### 使用例2
 
-- 縦768ピクセル、横512ピクセルの3:2PNG画像をX68000 512x512x65536色モードでできるだけアスペクト比を維持しながら表示させたい場合
+- 横768ピクセル、縦512ピクセルの3:2PNG画像をX68000 512x512x65536色モードでできるだけアスペクト比を維持しながら表示させたい場合
 
 <img src='images/sample2.png'/>
 
@@ -96,3 +98,79 @@ X68000側で MicroPython を使って表示する例
 注意：X68000Z EAKは意図的にやや横長に表示するようになっており、上記設定で実行するとやや横に潰れた形となる。X68000Z での表示を優先するならば縦幅 512px とする。
 
 ---
+
+### 使用例3
+
+- 横768ピクセル、縦512ピクセルの3:2PNG画像をX68000 512x512x256色パレットモードでできるだけアスペクト比を維持しながら表示させたい場合
+
+        png2grm -w 512 -h 464 -c 256 sample3.png sample256.grm
+
+このモードの場合は、先頭に 2 * 256 byte のパレットデータが付加される。その後は 1 dot = 1 byte のデータが続く。
+
+X68000側で MicroPython を使って表示する例
+
+        import x68k
+
+        x68k.crtmod(8,True)
+
+        gvram = x68k.GVRam()
+        with open("sample256.grm", "rb") as f:
+          pal_data = f.read(2 * 256)
+          for i in range(256):
+            gvram.palet(i, int.from_bytes(pal_data[ i * 2 : i * 2 + 2 ]))
+          grm_data = f.read(1 * 512 * 464)
+          gvram.put(0, 24, 511, 24 + 463, grm_data)
+
+<img src='images/sample256.png' width='800px'/>
+
+
+---
+
+### 使用例4
+
+- 横768ピクセル、縦512ピクセルの3:2PNG画像をX68000 768x512x16色パレットモードで画面全体に表示させたい場合
+
+        png2grm -w 768 -h 512 -c 16 sample3.png sample16.grm
+
+このモードの場合は、先頭に 2 * 16 byte のパレットデータが付加される。その後は 2 dot = 1 byte のデータが続く。
+
+X68000側で MicroPython を使って表示する例
+
+        import x68k
+
+        x68k.crtmod(16,True)
+
+        gvram = x68k.GVRam()
+        with open("sample16.grm", "rb") as f:
+          pal_data = f.read(2 * 16)
+          for i in range(16):
+            gvram.palet(i, int.from_bytes(pal_data[ i * 2 : i * 2 + 2 ]))
+          grm_data = f.read(1 * 768 * 512 // 2)
+          gvram.put(0, 0, 767, 511, grm_data)
+
+<img src='images/sample16.png' width='800px'/>
+
+
+---
+
+### 使用例5
+
+- 横512ピクセル、縦85ピクセルのPNG画像を2値化してX68000 テキストプレーン0に表示させたい場合
+
+        png2grm -w 512 -h 85 -t sample4.png samplet.trm
+
+このモードの場合は、先頭に 横幅(2 byte) + 縦幅(2 byte) のサイズデータが付加される。その後は 16 dot = 2 byte のデータが続く。
+
+X68000側で MicroPython を使って表示する例
+
+        import x68k
+
+        x68k.crtmod(16,True)
+
+        tvram = x68k.TVRam()
+        with open("samplet.trm", "rb") as f:
+          trm_data = f.read()
+          tvram.put(0, 200, trm_data)
+
+<img src='images/samplet.png' width='800px'/>
+
