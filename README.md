@@ -79,7 +79,7 @@ X68000側で MicroPython を使って表示する例
 
 もし高さを16の倍数として扱い易くしたい場合は縦464ピクセルでもほぼ問題ない。
 
-        png2grm -w 512 -h 464 sample2.png sample2.grm
+        png2grm -x 512 -y 464 sample2.png sample2.grm
 
 X68000側で MicroPython を使って表示する例
 
