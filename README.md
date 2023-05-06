@@ -21,7 +21,7 @@ Input PNG file can be RGB PNG or RGBA transparent PNG either.
         -x [width]       ... 出力横サイズ
         -y [height]      ... 出力縦サイズ
         -c [colors]      ... 65536(default), 256, 16
-        -t               ... TVRAM2値形式で書き出す(-cは無視)
+        -t               ... TVRAM形式で書き出す(-cは無視して2値化)
         -h               ... ヘルプメッセージの表示
 
 ---
@@ -161,6 +161,7 @@ X68000側で MicroPython を使って表示する例
         png2grm -x 512 -y 85 -t sample4.png samplet.trm
 
 このモードの場合は、先頭に 横幅(2 byte) + 縦幅(2 byte) のサイズデータが付加される。その後は 16 dot = 2 byte のデータが続く。
+4プレーン16色ではなく、1プレーン分の2値データとなるので注意。
 
 X68000側で MicroPython を使って表示する例
 
