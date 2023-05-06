@@ -33,7 +33,7 @@ Input PNG file can be RGB PNG or RGBA transparent PNG either.
 
 横384ピクセル、縦512ピクセルで出力する。これより小さいサイズにする場合はこの比率(3:4)を維持する。
 
-        png2grm -w 384 -h 512 sample1.png sample1.grm
+        png2grm -x 384 -y 512 sample1.png sample1.grm
 
 X68000側で MicroPython を使って表示する例
 
@@ -63,7 +63,7 @@ X68000側で MicroPython を使って表示する例
 
 横512ピクセル、縦456ピクセルで出力する。これより小さいサイズにする場合はこの比率(約8:7)を維持する。
 
-        png2grm -w 512 -h 456 sample2.png sample2.grm
+        png2grm -x 512 -y 456 sample2.png sample2.grm
 
 X68000側で MicroPython を使って表示する例
 
@@ -103,7 +103,7 @@ X68000側で MicroPython を使って表示する例
 
 - 横768ピクセル、縦512ピクセルの3:2PNG画像をX68000 512x512x256色パレットモードでできるだけアスペクト比を維持しながら表示させたい場合
 
-        png2grm -w 512 -h 464 -c 256 sample3.png sample256.grm
+        png2grm -x 512 -y 464 -c 256 sample3.png sample256.grm
 
 このモードの場合は、先頭に 2 * 256 byte のパレットデータが付加される。その後は 1 dot = 1 byte のデータが続く。
 
@@ -130,7 +130,7 @@ X68000側で MicroPython を使って表示する例
 
 - 横768ピクセル、縦512ピクセルの3:2PNG画像をX68000 768x512x16色パレットモードで画面全体に表示させたい場合
 
-        png2grm -w 768 -h 512 -c 16 sample3.png sample16.grm
+        png2grm -x 768 -y 512 -c 16 sample3.png sample16.grm
 
 このモードの場合は、先頭に 2 * 16 byte のパレットデータが付加される。その後は 2 dot = 1 byte のデータが続く。
 
@@ -157,7 +157,7 @@ X68000側で MicroPython を使って表示する例
 
 - 横512ピクセル、縦85ピクセルのPNG画像を2値化してX68000 テキストプレーン0に表示させたい場合
 
-        png2grm -w 512 -h 85 -t sample4.png samplet.trm
+        png2grm -x 512 -y 85 -t sample4.png samplet.trm
 
 このモードの場合は、先頭に 横幅(2 byte) + 縦幅(2 byte) のサイズデータが付加される。その後は 16 dot = 2 byte のデータが続く。
 
