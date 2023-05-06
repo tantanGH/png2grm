@@ -91,7 +91,7 @@ X68000側で MicroPython を使って表示する例
         with open("sample2.grm", "rb") as f:
           for y in range(0, 464, 16):
             grm_data = f.read(2 * 512 * 16)
-            gvram.put(0, y, 511, y + 15, grm_data)
+            gvram.put(0, 24 + y, 511, 24 + y + 15, grm_data)
 
 <img src='images/sample2x.png'/>
 
