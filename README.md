@@ -22,6 +22,7 @@ Input PNG file can be RGB PNG or RGBA transparent PNG either.
         -y [height]      ... 出力縦サイズ
         -c [colors]      ... 65536(default), 256, 16
         -t               ... TVRAM2値形式で書き出す(-cは無視)
+        -h               ... ヘルプメッセージの表示
 
 ---
 
