@@ -118,7 +118,8 @@ X68000側で MicroPython を使って表示する例
         with open("sample256.grm", "rb") as f:
           pal_data = f.read(2 * 256)
           for i in range(256):
-            gvram.palet(i, int.from_bytes(pal_data[ i * 2 : i * 2 + 2 ]))
+            col = int.from_bytes(pal_data[ i * 2 : i * 2 + 2 ], 'big')
+            gvram.palet(i, col)
           grm_data = f.read(1 * 512 * 464)
           gvram.put(0, 24, 511, 24 + 463, grm_data)
 
@@ -145,7 +146,8 @@ X68000側で MicroPython を使って表示する例
         with open("sample16.grm", "rb") as f:
           pal_data = f.read(2 * 16)
           for i in range(16):
-            gvram.palet(i, int.from_bytes(pal_data[ i * 2 : i * 2 + 2 ]))
+            col = int.from_bytes(pal_data[ i * 2 : i * 2 + 2 ], 'big')
+            gvram.palet(i, col)
           grm_data = f.read(1 * 768 * 512 // 2)
           gvram.put(0, 0, 767, 511, grm_data)
 
